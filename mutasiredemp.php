@@ -325,7 +325,7 @@ function cekKaloSatu(theForm){
 function test(val){
   let a = $(`#kdredemption1`).val()
   let d = $(`#kdredemption2`).val()
-  
+
   if(a == 'A'){
     let b = $(`#unitx1`).text()
     let c = $(`#unitx2`).text()
@@ -393,10 +393,15 @@ function checkVal(val,no) {
             if (konfirmasi){
               cekjua.jumlah1.focus()
               $('#kdredemption1').val('A')
+              $('#kdredemption2').val('A')
               a = $('#unitx1').text()
+              b = $('#unitx2').text()
               $('#linkx1').val(a)
+              $('#linkx2').val(b)
               $("#linkx1").prop( "readonly", true )
               $('#kdredemption1').prop( "readonly", true )
+              $("#linkx2").prop( "readonly", true )
+              $('#kdredemption2').prop( "readonly", true )
             } else {
               $('#linkx1').val('')
               $('#linkx1').focus();
@@ -409,10 +414,15 @@ function checkVal(val,no) {
             if (konfirmasi){
               cekjua.jumlah1.focus()
               $('#kdredemption1').val('A')
+              $('#kdredemption1').val('A')
               a = $('#unitx1').text()
+              b = $('#unitx2').text()
               $('#linkx1').val(a)
+              $('#linkx2').val(b)
               $("#linkx1").prop( "readonly", true )
               $('#kdredemption1').prop( "readonly", true )
+              $("#linkx2").prop( "readonly", true )
+              $('#kdredemption2').prop( "readonly", true )
             } else {
                $('#linkx1').val('')
                 $('#linkx1').focus();
@@ -427,9 +437,14 @@ function checkVal(val,no) {
           var konfirmasi=confirm('Sisa saldo kurang dari 1000, Lanjukan dengan tebus (Redeem All Unit)?')
             if (konfirmasi){
               cekjua.jumlah2.focus()
+              $('#kdredemption1').val('A')
               $('#kdredemption2').val('A')
-              a = $('#unitx2').text()
-              $('#linkx2').val(a)
+              a = $('#unitx1').text()
+              b = $('#unitx2').text()
+              $('#linkx1').val(a)
+              $('#linkx2').val(b)
+              $("#linkx1").prop( "readonly", true )
+              $('#kdredemption1').prop( "readonly", true )
               $("#linkx2").prop( "readonly", true )
               $('#kdredemption2').prop( "readonly", true )
         } else {
@@ -443,9 +458,14 @@ function checkVal(val,no) {
           var konfirmasi=confirm('Sisa saldo kurang dari Rp 2.000.000, Lanjukan dengan tebus (Redeem All Unit)?')
             if (konfirmasi){
               cekjua.jumlah2.focus()
+              $('#kdredemption1').val('A')
               $('#kdredemption2').val('A')
-              a = $('#unitx2').text()
-              $('#linkx2').val(a)
+              a = $('#unitx1').text()
+              b = $('#unitx2').text()
+              $('#linkx1').val(a)
+              $('#linkx2').val(b)
+              $("#linkx1").prop( "readonly", true )
+              $('#kdredemption1').prop( "readonly", true )
               $("#linkx2").prop( "readonly", true )
               $('#kdredemption2').prop( "readonly", true )
         } else {
@@ -635,26 +655,26 @@ if($_POST['Submit']){
   
             <?php 
   
-               $qunit="SELECT NOMOR_POLIS, 
+               $qunit="SELECT NOMOR_POLIS,
               SUM (UNIT * CASE TRX_TYPE
                       WHEN 'S' THEN 1
                                         WHEN 'T' THEN 1
                                         WHEN 'R' THEN -1
                                         WHEN 'C' THEN -1
                                END)
-              SALDO, 
-              SUBSTR (KODE_FUND, -2) FUND, 
+              SALDO,
+              SUBSTR (KODE_FUND, -2) FUND,
               (SELECT NAMAFUND FROM $DBUser.TABEL_UL_KODE_FUND WHERE kdfund=SUBSTR (b.KODE_FUND, -2)) NAMAFUND,
-              (SELECT nab_jual 
-                FROM $DBUser.TABEL_ul_nab 
-                WHERE kode_fund = SUBSTR (b.KODE_FUND, -2) 
-                  AND tgl_nab IN (select max(tgl_nab) 
-                            from $DBUser.TABEL_ul_nab 
+              (SELECT nab_jual
+                FROM $DBUser.TABEL_ul_nab
+                WHERE kode_fund = SUBSTR (b.KODE_FUND, -2)
+                  AND tgl_nab IN (select max(tgl_nab)
+                            from $DBUser.TABEL_ul_nab
                             where kode_fund=SUBSTR (b.KODE_FUND, -2)
                           )
               ) NAB
             FROM $DBUser.TABEL_UL_TRANSAKSI b
-              WHERE (NOMOR_POLIS = '$nopertanggungan' OR NOMOR_POLIS_NEW = '$nopertanggungan')
+              WHERE (NOMOR_POLIS = '$nopertanggungan' OR NOMOR_POLIS = (SELECT PREFIXPERTANGGUNGAN||NOPERTANGGUNGAN FROM $DBUser.TABEL_200_PERTANGGUNGAN WHERE NOPOLBARU = '$nopertanggungan'))
               AND STATUS = 'GOOD FUND'
               AND ST_PROSES <> 'X'
               GROUP BY   NOMOR_POLIS, KODE_FUND";
