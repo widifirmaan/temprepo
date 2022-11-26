@@ -57,182 +57,195 @@ function loadcek(theForm){
 
       let kdfun1 = $(`#kdredemption1`).val()
       let kdfun2 = $(`#kdredemption2`).val()
+      let jumlah1 = $('#linkx1').val()
+      let jumlah2 = $('#linkx2').val()
 
-          if (($('#link1').val() == '' || $('#kdredemption1').val() == '') && ($('#linkx2').val() == '' || $('#kdredemption2').val() == '')){
-            alert(`Isi Jenis Redemption & Jumlah Redemption Kode Fund`);
+          if ( kdfun1 == '' && jumlah1 == '' && kdfun2 == '' && jumlah2 == '' ){
+            alert(`Isi Jenis Redemption & Jumlah Redemption`);
             $(`#kdredemption1`).focus()
-          } 
-
-          else if ($('#kdredemption1').val() != '' && $('#linkx1').val() == ''){
-             $(`#kdredemption1`).val() == ''
           }
 
-          else if ($('#kdredemption2').val() != '' && $('#linkx2').val() == ''){
-             $('#kdredemption2').val() == ''
+          else if ( kdfun1 == '' && jumlah1 ){
+             alert(`Pilih Jenis Redemption ${namafun1}`);
+             $(`#kdredemption1`).focus()
           }
 
-          else if ($('#kdredemption1').val() == '' && $('#linkx1').val() != ''){
-            $('#linkx1').val() == ''
+          else if ( kdfun1 && jumlah1 == '' ){
+             alert(`Isi Jumlah Redemption ${namafun1}`);
+             $(`#linkx1`).focus()
           }
 
-          else if ($('#kdredemption2').val() == '' && $('#linkx2').val() != ''){
-            $('#linkx2').val() == ''
+          else if ( kdfun2 == '' && jumlah2 ){
+             alert(`Pilih Jenis Redemption ${namafun2}`);
+             $(`#kdredemption2`).focus()
           }
 
-          // else if (($('#kdredemption1').val() == '' && $('#link1').val() != '') || ($('#kdredemption2').val() == '' && $('#link2').val() != '')){
-          //   alert(`Pilih Jenis Redemption`);
-          //   // $(`#kdredemption1`).focus()
-          // }
+          else if ( kdfun2 && jumlah2 == '' ){
+             alert(`Isi Jumlah Redemption ${namafun2}`);
+             $(`#linkx2`).focus()
+          }
 
-          // else if (($('#kdredemption1').val() == '' && $('#link1').val() != '') || ($('#kdredemption2').val() == '' && $('#link2').val() != '')){
-          //   alert(`Pilih Jenis Redemption`);
-          //   $(`#kdredemption1`).focus()
-          // }
-
-          // else if ($('#linkx1').val() == ''){
-          //   alert(`Isi Jumlah Redemption Kode Fund ${namafun1}`);
-          //   $('#linkx1').focus()
-          // }
-          // else if ($('#linkx2').val() == '' && $('#kdredemption2').val() == ''){
-          //   alert(`Isi Jenis Redemption & Jumlah Redemption Kode Fund ${namafun2}`);
-          //   $(`#kdredemption2`).focus()
-          // }
-
-          // else if ($('#kdredemption2').val() == ''){
-          //   alert(`Pilih Jenis Redemption Kode Fund ${namafun2}`);
-          //   $(`#kdredemption2`).focus()
-          // } 
-
-          // else if ($('#linkx2').val() == ''){
-          //   alert(`Isi Jumlah Redemption Kode Fund ${namafun2}`);
-          //   $('#linkx2').focus()
-          // }
+          else if ( (kdfun1 == 'A' && kdfun2 != 'A') || (kdfun1 != 'A' && kdfun2 == 'A') ){
+            var konfirmasi = confirm('Kedua jenis Redemption All harus sama. Lanjutkan Redemption All?')
+            if (konfirmasi){
+              cekjua.jumlah1.focus()
+              $('#kdredemption1').val('A')
+              $('#kdredemption2').val('A')
+              a = $('#unitx1').text()
+              b = $('#unitx2').text()
+              $('#linkx1').val(a)
+              $('#linkx2').val(b)
+              $("#linkx1").prop( "readonly", true )
+              $('#kdredemption1').prop( "readonly", true )
+              $("#linkx2").prop( "readonly", true )
+              $('#kdredemption2').prop( "readonly", true )
+            } else {
+              $(`#kdredemption1`).focus()
+            }
+          }
 
           else if ($('#penerima').val() == ''){
-            alert('Isi Field Nama Penerima!');
+            alert('Isi Nama Penerima!');
             cekjua.penerima.focus()
           }
 
           else if ($('#rekening').val() == ''){
-            alert('Isi Field Nomor Rekening!');
+            alert('Isi Nomor Rekening!');
             cekjua.rekening.focus()
           }
 
           else if ($('#bank').val() == ''){
-            alert('Isi Field Bank!');
+            alert('Isi Nama Bank!');
             cekjua.bank.focus()
           }
 
           else if ($('#cabang').val() == ''){
-            alert('Isi Field Cabang!');
+            alert('Isi Cabang!');
             cekjua.cabang.focus()
-          }
-
-          else if (kdfun1 =='A'){
-              $('#submit').prop( "hidden", false )
-              $('#check').prop( "hidden", true )
-              $(`#kdredemption1`).prop( "readonly", true )
-              $(`#linkx1`).prop( "readonly", true )
-              $(`#kdredemption2`).prop( "readonly", true )
-              $(`#linkx2`).prop( "readonly", true )
-              $("#penerima").prop( "readonly", true )
-              $('#rekening').prop( "readonly", true )
-              $("#bank").prop( "readonly", true )
-              $('#cabang').prop( "readonly", true )
-              $('#alert1').prop( "hidden", true )
-              $(`#kdredemption1`).val('U')
-              alert(`Data ${namafun1} Sudah Sesuai`)
           } 
 
-          else if(kdfun1 =='U'){
+          else {
+            if (kdfun1 =='A'){
               $('#submit').prop( "hidden", false )
+              $('#batal').prop( "hidden", false )
               $('#check').prop( "hidden", true )
-              $(`#kdredemption1`).prop( "readonly", true )
+              $(`#kdredemption1`).prop( "disabled", true )
+              $(`#kdredemption2`).prop( "disabled", true )
               $(`#linkx1`).prop( "readonly", true )
+              $(`#linkx2`).prop( "readonly", true )
               $("#penerima").prop( "readonly", true )
               $('#rekening').prop( "readonly", true )
               $("#bank").prop( "readonly", true )
               $('#cabang').prop( "readonly", true )
               $('#alert1').prop( "hidden", true )
+              $(`#kodered1`).val('U')
+              $(`#kodered2`).val('U')
+              $("#linkx1").css("background-color","#F0F0F0");
+              $("#linkx2").css("background-color","#F0F0F0");
+              alert(`Data ${namafun1} Sudah Sesuai`)
+            } 
+
+            else if ( kdfun1 =='U' ){
+              $('#submit').prop( "hidden", false )
+              $('#batal').prop( "hidden", false )
+              $('#check').prop( "hidden", true )
+              $(`#kdredemption1`).prop( "disabled", true )
+              $(`#kdredemption2`).prop( "disabled", true )
+              $(`#linkx1`).prop( "readonly", true )
+              $(`#linkx2`).prop( "readonly", true )
+              $("#penerima").prop( "readonly", true )
+              $('#rekening').prop( "readonly", true )
+              $("#bank").prop( "readonly", true )
+              $('#cabang').prop( "readonly", true )
+              $('#alert1').prop( "hidden", true )
+              $(`#kodered1`).val('U')
+              $("#linkx1").css("background-color","#F0F0F0");
+              $("#linkx2").css("background-color","#F0F0F0");
+              alert(`Data ${namafun1} Sudah Sesuai`)
+            } 
+
+            else if ( kdfun1 =='R' ) { 
+              $('#submit').prop( "hidden", false )
+              $('#batal').prop( "hidden", false )
+              $('#check').prop( "hidden", true )
+              $(`#kdredemption1`).prop( "disabled", true )
+              $(`#kdredemption2`).prop( "disabled", true )
+              $(`#linkx1`).prop( "readonly", true )
+              $(`#linkx2`).prop( "readonly", true )
+              $("#penerima").prop( "readonly", true )
+              $('#rekening').prop( "readonly", true )
+              $("#bank").prop( "readonly", true )
+              $('#cabang').prop( "readonly", true )
+              $('#alert1').prop( "hidden", true )
+              $(`#kodered1`).val('R')
+              $("#linkx1").css("background-color","#F0F0F0");
+              $("#linkx2").css("background-color","#F0F0F0");
               alert(`Data ${namafun1} Sudah Sesuai`)
             }
 
-          else if (kdfun1 =='R') { 
+
+
+            if (kdfun2 =='A'){
               $('#submit').prop( "hidden", false )
+              $('#batal').prop( "hidden", false )
               $('#check').prop( "hidden", true )
-              $(`#kdredemption2`).prop( "readonly", true )
-              $(`#linkx2`).prop( "readonly", true )
-              $("#penerima").prop( "readonly", true )
-              $('#rekening').prop( "readonly", true )
-              $("#bank").prop( "readonly", true )
-              $('#cabang').prop( "readonly", true )
-              $('#alert1').prop( "hidden", true )
-              alert(`Data ${namafun2} Sudah Sesuai`)
-            }
-
-
-
-          if ($('#penerima').val() == ''){
-            cekjua.penerima.focus()
-          }
-
-          else if ($('#rekening').val() == ''){
-            cekjua.rekening.focus()
-          }
-
-          else if ($('#bank').val() == ''){
-            cekjua.bank.focus()
-          }
-
-          else if ($('#cabang').val() == ''){
-            cekjua.cabang.focus()
-          }
-
-          else if (kdfun2 =='A'){
-              $('#submit').prop( "hidden", false )
-              $('#check').prop( "hidden", true )
-              $(`#kdredemption1`).prop( "readonly", true )
+              $(`#kdredemption1`).prop( "disabled", true )
+              $(`#kdredemption2`).prop( "disabled", true )
               $(`#linkx1`).prop( "readonly", true )
-              $(`#kdredemption2`).prop( "readonly", true )
               $(`#linkx2`).prop( "readonly", true )
               $("#penerima").prop( "readonly", true )
               $('#rekening').prop( "readonly", true )
               $("#bank").prop( "readonly", true )
               $('#cabang').prop( "readonly", true )
               $('#alert1').prop( "hidden", true )
-              $(`#kdredemption2`).val('U')
+              $(`#kodered1`).val('U')
+              $(`#kodered2`).val('U')
+              $("#linkx1").css("background-color","#F0F0F0");
+              $("#linkx2").css("background-color","#F0F0F0");
               alert(`Data ${namafun2} Sudah Sesuai`)
           }
 
           else if (kdfun2 =='U'){
               $('#submit').prop( "hidden", false )
+              $('#batal').prop( "hidden", false )
               $('#check').prop( "hidden", true )
-              $(`#kdredemption2`).prop( "readonly", true )
+              $(`#kdredemption1`).prop( "disabled", true )
+              $(`#kdredemption2`).prop( "disabled", true )
+              $(`#linkx1`).prop( "readonly", true )
               $(`#linkx2`).prop( "readonly", true )
               $("#penerima").prop( "readonly", true )
               $('#rekening').prop( "readonly", true )
               $("#bank").prop( "readonly", true )
               $('#cabang').prop( "readonly", true )
               $('#alert1').prop( "hidden", true )
+              $(`#kodered2`).val('U')
+              $("#linkx1").css("background-color","#F0F0F0");
+              $("#linkx2").css("background-color","#F0F0F0");
               alert(`Data ${namafun2} Sudah Sesuai`)
             }
             
-          else if (kdfun2 =='R') {   
+          else if (kdfun2 =='R') {
               $('#submit').prop( "hidden", false )
+              $('#batal').prop( "hidden", false )
               $('#check').prop( "hidden", true )
-              $(`#kdredemption1`).prop( "readonly", true )
+              $(`#kdredemption1`).prop( "disabled", true )
+              $(`#kdredemption2`).prop( "disabled", true )
               $(`#linkx1`).prop( "readonly", true )
+              $(`#linkx2`).prop( "readonly", true )
               $("#penerima").prop( "readonly", true )
               $('#rekening').prop( "readonly", true )
               $("#bank").prop( "readonly", true )
               $('#cabang').prop( "readonly", true )
               $('#alert1').prop( "hidden", true )
-              alert(`Data ${namafun1} Sudah Sesuai`)
+              $(`#kodered2`).val('R')
+              $("#linkx1").css("background-color","#F0F0F0");
+              $("#linkx2").css("background-color","#F0F0F0");
+              alert(`Data ${namafun2} Sudah Sesuai`)
             }
 
-            
-            }
-            }
+          }          
+     }
+  }
 }
 
 
@@ -281,50 +294,57 @@ function cekKaloSatu(theForm){
 
         else if (kdfun=='A'){
             $('#submit').prop( "hidden", false )
+            $('#batal').prop( "hidden", false )
             $('#check').prop( "hidden", true )
-            $('#kdredemption1').prop( "readonly", true )
+            $('#kdredemption1').prop( "disabled", true )
             $("#linkx1").prop( "readonly", true )
             $("#penerima").prop( "readonly", true )
             $('#rekening').prop( "readonly", true )
             $("#bank").prop( "readonly", true )
             $('#cabang').prop( "readonly", true )
             $('#alert1').prop( "hidden", true )
-            $('#kdredemption1').val('U')
+            $(`#kodered1`).val('U')
+            $("#linkx1").css("background-color","#F0F0F0");
             alert(`Data ${namafun} Sudah Sesuai`)
         } 
 
 
           else if(kdfun =='U'){
               $('#submit').prop( "hidden", false )
+              $('#batal').prop( "hidden", false )
               $('#check').prop( "hidden", true )
-              $(`#kdredemption1`).prop( "readonly", true )
+              $(`#kdredemption1`).prop( "disabled", true )
               $(`#linkx1`).prop( "readonly", true )
               $("#penerima").prop( "readonly", true )
               $('#rekening').prop( "readonly", true )
               $("#bank").prop( "readonly", true )
               $('#cabang').prop( "readonly", true )
               $('#alert1').prop( "hidden", true )
+              $(`#kodered1`).val('U')
+              $("#linkx1").css("background-color","#F0F0F0");
               alert(`Data ${namafun} Sudah Sesuai`)
             }
 
           else if (kdfun =='R') { 
               $('#submit').prop( "hidden", false )
+              $('#batal').prop( "hidden", false )
               $('#check').prop( "hidden", true )
-              $(`#kdredemption2`).prop( "readonly", true )
-              $(`#linkx2`).prop( "readonly", true )
+              $(`#kdredemption1`).prop( "disabled", true )
+              $(`#linkx1`).prop( "readonly", true )
               $("#penerima").prop( "readonly", true )
               $('#rekening').prop( "readonly", true )
               $("#bank").prop( "readonly", true )
               $('#cabang').prop( "readonly", true )
               $('#alert1').prop( "hidden", true )
+              $(`#kodered1`).val('R')
+              $("#linkx1").css("background-color","#F0F0F0");
               alert(`Data ${namafun} Sudah Sesuai`)
             }
 }
 
 
 function test(val){
-  let a = $(`#kdredemption1`).val()
-  let d = $(`#kdredemption2`).val()
+  let a = $(`#kdredemption${val}`).val()
 
   if(a == 'A'){
     let b = $(`#unitx1`).text()
@@ -333,19 +353,8 @@ function test(val){
     $(`#linkx2`).val(c)
     $(`#kdredemption1`).val('A')
     $(`#kdredemption2`).val('A')
-    $(`#linkx1`).prop( "readonly", true );
-    $(`#linkx2`).prop( "readonly", true );
-    $( "#rupiah" ).prop( "hidden", true );
-    $( "#unitt" ).prop( "hidden", true );
-  }
-
-  else if(d == 'A'){
-    let b = $(`#unitx1`).text()
-    let c = $(`#unitx2`).text()
-    $(`#linkx1`).val(b)
-    $(`#linkx2`).val(c)
-    $(`#kdredemption1`).val('A')
-    $(`#kdredemption2`).val('A')
+    $("#linkx1").css("background-color","#F0F0F0");
+    $("#linkx2").css("background-color","#F0F0F0");
     $(`#linkx1`).prop( "readonly", true );
     $(`#linkx2`).prop( "readonly", true );
     $( "#rupiah" ).prop( "hidden", true );
@@ -376,20 +385,35 @@ function test(val){
 function checkVal(val,no) {
 
       let x = parseFloat(val)
+      
       let unitawal1 = parseFloat($('#jumunit1').val())
       let unitawal2 = parseFloat($('#jumunit2').val())
-      let rpawal1 = parseFloat($('#jumrp1').val())
-      let rpawal2 = parseFloat($('#jumrp2').val())
       let unit1 = unitawal1 - x;
       let unit2 = unitawal2 - x;
+
+
+      let nabawal1 = parseFloat($('#jumnab1').val())
+      let nabawal2 = parseFloat($('#jumnab2').val())
+      let minimal1 = x * nabawal1;
+      let minimal2 = x * nabawal2;
+
+
+      let rpawal1 = parseFloat($('#jumrp1').val())
+      let rpawal2 = parseFloat($('#jumrp2').val())
       let rp1 = parseFloat(rpawal1 - x);
       let rp2 = parseFloat(rpawal2 - x);
+      
 
       if (no == 1){
 
         if ($(`#kdredemption1`).val() == 'U'){
-        if( unit1 < 1000 ){
-          var konfirmasi=confirm('Sisa saldo kurang dari 1000, Lanjukan dengan tebus (Redeem All Unit)?')
+        if( minimal1 < 1000000 ){
+          alert('Minimal Pengajuan Redemption Partial sebesar Rp 1.000.000')
+          $('#linkx1').val('')
+          $('#linkx1').focus();
+        }
+        else if ( (rpawal1 - minimal1) <= 2000000 ) {
+          var konfirmasi=confirm('Sisa saldo kurang dari Rp 2.000.000, Lanjukan dengan tebus (Redeem All Unit)?')
             if (konfirmasi){
               cekjua.jumlah1.focus()
               $('#kdredemption1').val('A')
@@ -409,8 +433,13 @@ function checkVal(val,no) {
         } 
 
         } else if ($(`#kdredemption1`).val() == 'R'){
-          if( rp1 <= 2000000 ){
-            var konfirmasi=confirm('Sisa saldo kurang dari Rp 2.000.000, Lanjukan dengan tebus (Redeem All Unit)?')
+          if( x < 1000000 ){
+            alert('Minimal Pengajuan Redemption Partial sebesar Rp 1.000.000')
+            $('#linkx1').val('')
+            $('#linkx1').focus();
+          }
+          else if ( rp1 <= 2000000 ) {
+            var konfirmasi=confirm('Sisa saldo kurang dari Rp 1.000.000, Lanjukan dengan tebus (Redeem All Unit)?')
             if (konfirmasi){
               cekjua.jumlah1.focus()
               $('#kdredemption1').val('A')
@@ -425,16 +454,20 @@ function checkVal(val,no) {
               $('#kdredemption2').prop( "readonly", true )
             } else {
                $('#linkx1').val('')
-                $('#linkx1').focus();
+               $('#linkx1').focus();
             }
-
-          } 
-
       }
+    }
+
       } else if (no == 2){
         if ($(`#kdredemption2`).val() == 'U'){
-        if( unit2 < 1000 ){
-          var konfirmasi=confirm('Sisa saldo kurang dari 1000, Lanjukan dengan tebus (Redeem All Unit)?')
+          if( minimal2 < 1000000 ){
+            alert('Minimal Pengajuan Redemption Partial sebesar Rp 1.000.000')
+            $('#linkx2').val('')
+            $('#linkx2').focus();
+          }
+        else if ( (rpawal2 - minimal2) <= 2000000 ){
+          var konfirmasi=confirm('Sisa saldo kurang dari Rp 2.000.000, Lanjukan dengan tebus (Redeem All Unit)?')
             if (konfirmasi){
               cekjua.jumlah2.focus()
               $('#kdredemption1').val('A')
@@ -454,7 +487,12 @@ function checkVal(val,no) {
       }
 
       } else if ($(`#kdredemption2`).val() == 'R'){
-        if( rp2 <= 2000000 ){
+        if( x < 1000000 ){
+            alert('Minimal Pengajuan Redemption Partial sebesar Rp 1.000.000')
+            $('#linkx2').val('')
+            $('#linkx2').focus();
+        }
+        else if ( rp2 <= 2000000 ){
           var konfirmasi=confirm('Sisa saldo kurang dari Rp 2.000.000, Lanjukan dengan tebus (Redeem All Unit)?')
             if (konfirmasi){
               cekjua.jumlah2.focus()
@@ -482,6 +520,13 @@ function checkVal(val,no) {
       
 }
 
+function cancel(){
+  var konfirmasi=confirm('Apakah anda yakin ingin membatalkan pengajuan?')
+    if (konfirmasi){
+      window.location.reload(true)
+    }
+}
+
 
 </script>
 
@@ -504,24 +549,19 @@ function checkVal(val,no) {
 
 <?php 
 if($_POST['Submit']){
-    // for ($i=1; $i<=$jmlf; $i++)
-    // {
-    //   var_dump($kd[$i-1]);
-    // }die;
-    // $namapenerima = str_replace("'", "`", $penerima);
 
 
     for ($i=1; $i<=$jmlf; $i++)
     {
 
-    	$jml = $_POST['jumlah'.$i];
-      	$sqlinsert = "insert into $DBUser.TABEL_UL_PENGAJUAN_REDEMPTION ".
+      $jml = $_POST['jumlah'.$i];
+        $sqlinsert = "insert into $DBUser.TABEL_UL_PENGAJUAN_REDEMPTION ".
             "(prefixpertanggungan, nopertanggungan, tgl_pengajuan, ".
             " kode_jenis, jumlah, user_update, tgl_update, status,penerima,rekening,bank,cabang,kdfund ".
             ")".
       "values (".
       "'$prefix','$nopertang',".
-      "to_date(SYSDATE,'DD/MM/YYYY'),'$kdredemption',".$jml.",user,SYSDATE,'0','$namapenerima','$rekening','$bank','$cabang','".$kd[$i-1]."')";
+      "trunc(SYSDATE),'$kodered',".$jml.",user,SYSDATE,'0','$namapenerima','$rekening','$bank','$cabang','".$kd[$i-1]."')";
 
        $DB1->parse($sqlinsert);
        $DB1->execute();
@@ -529,18 +569,6 @@ if($_POST['Submit']){
        
      }
  
-
-      // $sqlinsert = "insert into $DBUser.TABEL_UL_PENGAJUAN_REDEMPTION ".
-      //       "(prefixpertanggungan, nopertanggungan, tgl_pengajuan, ".
-      //       " kode_jenis, jumlah, user_update, tgl_update, status,penerima,rekening,bank,cabang,kdfund ".
-      //       ")".
-      // "values (".
-      // "'$prefix','$nopertang',".
-      // "to_date(SYSDATE,'DD/MM/YYYY'),'$kdredemption',$jumlah,user,SYSDATE,'0','$namapenerima','$rekening','$bank','$cabang','$kd')";
-
-      //  $DB1->parse($sqlinsert);
-      //  $DB1->execute();
-      //  $DB1->commit;
 
   echo  "<script type='text/javascript'> if(confirm('Data Berhasil Diinput, Apakah anda ingin melihat List Redemption?')){ window.location.href='mutasipengajuan_redemption.php?noper=".$nopertang."&prefix=".$prefix."' }  </script>";
 }
@@ -573,7 +601,7 @@ if($_POST['Submit']){
     <div class="container mt-4 mb-4" style="width: 750px;">
       <div class="card">
         <div class="card-header alert-primary text-center">
-          <table border="0" width="675" cellspacing="1">
+          <table border="0" width="675" cellspacing="1"> 
             <tr>
               <td colspan="2">
                 <h3 class="text-center mt-3"><strong>NO. POLIS<?php if (!$arx || $PER->statusfile == "LAPSE" || ( substr($PER->produk,0,3) != 'JL4' && substr($PER->produk,0,3) != 'JL3') || $arrcek["ADA"] >= '1' ) { echo '';} else {echo " - ".$nopertanggungan; } ?></strong></h3>
@@ -593,7 +621,7 @@ if($_POST['Submit']){
               $nopertanggungan = '';
               echo "<script type='text/javascript'>alert('Nomor Polis Tidak Terdaftar');</script>";
             } 
-              else if ($PER->statusfile != "AKTIF"){
+              else if(!in_array ($PER->kdstatusfile,array('1','3','4','L','A'))){
               echo "<script type='text/javascript'>alert('Polis Sedang Tidak Aktif');</script>";
             } 
             else if( substr($PER->produk,0,3) != 'JL4' && substr($PER->produk,0,3) != 'JL3') {
@@ -689,20 +717,6 @@ if($_POST['Submit']){
         $no = 1;
         while ($aru=$DB3->nextrow()) {
 
-          // echo "<div class='container w-100 mb-5 mt-5' style='margin-left: 15px'>";
-          // echo    "<div class='row w-100 text-center'>";
-          // echo      "<div class='col-4 alert-primary'><strong>Keterangan</strong></div>";
-          // echo      "<div class='col alert-primary'><strong>Unit</strong></div>";
-          // echo      "<div class='col alert-primary'><strong>NAB</strong></div>";
-          // echo      "<div class='col-3 alert-primary'><strong>Rupiah</strong></div>";
-          // echo      "<div class='w-100'></div>";
-          // echo      "<div class='col-4' style='background-color:#ECEFF1;'> ".$aru["NAMAFUND"]." </div>";
-          // echo      "<div id='unitx' class='col' style='background-color: #ECEFF1;'> ".$aru["SALDO"]." </div>";
-          // echo      "<div class='col' style='background-color:#ECEFF1;'> ".$aru["NAB"]." </div>";
-          // echo      "<div class='col-3' style='background-color:#ECEFF1;'> ".number_format($aru["SALDO"]*$aru["NAB"],2,',','.')." </div>";
-          // echo    "</div>";
-          // echo  "</div>";
-
           echo "<tr bgcolor=#".($i % 2 ? "ffffff" : "d5e7fd").">";
           echo "<td class='text-center'>".$aru["NAMAFUND"]."</td>";
           echo "<td align='center' id='unitx".$no."' class='text-center'>".$aru["SALDO"]."</td>";
@@ -748,6 +762,7 @@ if($_POST['Submit']){
             echo "<td class=\"ml-2\">".$arr["KDFUND"]."<input class=\"ml-2 text-center\" type=\"text\" size=\"20\" name=\"jumlah".$i."\" onblur=\"checkVal(this.value,$i)\" id='linkx".$i."' onfocus=\"highlight(event)\")\"></td>";
 
           echo "</tr>";
+          echo "<input type='hidden' id='kodered".$i."' name='kodered' value=''>";
           echo "<input type='hidden' name='jmlf' value='".$i."'>";
           echo "<input type='hidden' name='kd[]' id='namafun".$i."' value='".$arr["KDFUND"]."'>";          
           $i++;
@@ -793,11 +808,12 @@ if($_POST['Submit']){
             <div class="form-group row">
               <div class="col-sm text-center">
                 <input type="button" class="btn font-weight-bold text-light bg-primary" id="check" onclick="loadcek();" value="VALIDASI" name="Check">
+                <button type="button" id='batal' class="btn btn-outline-secondary font-weight-bold" onclick="cancel();" hidden> CANCEL </button>
                 <input type="submit" class="btn font-weight-bold text-light bg-primary" id="submit" value="SUBMIT" name="Submit" hidden>
               </div>
             </div>
 
-            <div class="form-group row" id="checkk">
+            <div class="form-group row" id="checkk"> 
              <div class="col-sm text-center">
               <small class="form-text text-muted text-center" id="alert1"><strong>VALIDASI</strong> Terlebih Dahulu <em class="important">*</em></small>
              </div>
